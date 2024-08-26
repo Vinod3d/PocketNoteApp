@@ -1,0 +1,15 @@
+.sidebarContainer{
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    height: 100vh;
+}
+
+.title{
+    font-size: 35px;
+    font-weight: 500;
+    background-color: #fff;
+    width: 100%;
+    text-align: center;
+    padding: 30px 0;
+}
