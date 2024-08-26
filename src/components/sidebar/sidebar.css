@@ -1,15 +1,70 @@
 .sidebarContainer{
     display: flex;
     flex-direction: column;
-    width: 25%;
+    width: 30%;
     height: 100vh;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    position: relative;
 }
 
 .title{
-    font-size: 35px;
+    font-size: clamp(25px, 5vw, 31px);
     font-weight: 500;
     background-color: #fff;
     width: 100%;
     text-align: center;
-    padding: 30px 0;
+    padding: 30px 25px;
+}
+
+.groupList{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 50px;
+    overflow-y: auto;
+}
+
+.groupItem{
+    display: flex;
+    padding: 10px;
+    align-items: center;
+}
+
+.groupIcon{
+    width: 60px;
+    height: 60px;
+    position: relative;
+    background-color: pink;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.groupIcon .Icon{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.groupName{
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.AddBtn{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    outline: none;
+    border: none;
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+    background-color: #16008B;
+    font-size: 70px;
+    color: #fff;
 }
