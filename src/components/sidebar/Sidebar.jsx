@@ -1,4 +1,6 @@
 import './sidebar.css'
+import { FaPlus } from "react-icons/fa6";
+
 const Sidebar = () => {
   return (
     <div className='sidebarContainer'>
@@ -69,7 +71,9 @@ const Sidebar = () => {
                 <h2 className='groupName'>Mango</h2>
             </div>
         </div>
-        <button className="AddBtn">+</button>
+        <button className="AddBtn">
+            <FaPlus />
+        </button>
     </div>
   )
 }
