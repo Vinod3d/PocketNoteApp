@@ -5,20 +5,32 @@ import Modal from './components/modal/Modal'
 
 function App() {
   const [openModal, setOpenModal] = useState(false);
-  const [groupData, setGroupData] = useState({})
+  const [groupData, setGroupData] = useState({});
+  const [groups, setGroups] = useState([]);
   
-  useEffect(()=>{
-    const prevData = JSON.parse(localStorage.getItem('group')) || [];
-    
-    const updatedData = [...prevData, groupData];
-    localStorage.setItem('group', JSON.stringify(updatedData))
-  },[groupData])
+  useEffect(() => {
+    if (groupData.groupName && groupData.color) {
+      const prevData = JSON.parse(localStorage.getItem('group')) || [];
+      const updatedData = [...prevData, groupData];
+      localStorage.setItem('group', JSON.stringify(updatedData));
+    }
+
+    let storedGroups = localStorage.getItem('group');
+    if (storedGroups) {
+      let groups =  JSON.parse(storedGroups);
+      setGroups(groups);
+    }
+  }, [groupData]);
 
 
   return (
     <>
       <div className="homepage">
-        <Sidebar setOpenModal={setOpenModal}/>
+        <Sidebar 
+          setOpenModal={setOpenModal}
+          groups={groups}
+        
+        />
         <MainContent/>
         {openModal && 
         <Modal

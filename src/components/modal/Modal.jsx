@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useRef, useState } from "react";
+import {useRef, useState } from "react";
 import "./modal.css";
 
 const Modal = ({setOpenModal, setGroupData}) => {
@@ -29,7 +29,7 @@ const Modal = ({setOpenModal, setGroupData}) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    setError(error.groupName = {})
+    setError((prevErrors) => ({ ...prevErrors, [name]: "" }));
   };
 
   const handleModalClose = (e)=>{
@@ -41,7 +41,7 @@ const Modal = ({setOpenModal, setGroupData}) => {
   const handleColorChange = (color) => {
     setFormData({ ...formData, color });
     setActive(color)
-    setError(error.color = {});
+    setError((prevErrors) => ({ ...prevErrors, color: "" }));
   };
 
   const handleSubmit = (e)=>{
@@ -58,8 +58,6 @@ const Modal = ({setOpenModal, setGroupData}) => {
         setOpenModal(false)
     }
   }
-
-  console.log(error)
 
   return (
     <>
@@ -92,11 +90,12 @@ const Modal = ({setOpenModal, setGroupData}) => {
                         border: `${active == color ? "2px solid black" : "none"}`
                     }}
                     onClick={() => handleColorChange(color)}
+                    type="button"
                     ></button>
                 ))}
             </div>
             {error.color && <p style={{color : 'red'}} className="error">{error.color}</p>}
-            <button className="createGroup">Create</button>
+            <button type="submit" className="createGroup">Create</button>
         </form>
       </div>
     </>
