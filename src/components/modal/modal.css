@@ -38,7 +38,6 @@
 .modalText{
     font-size: clamp(10px, 5vw, 18px);
     font-weight: 400;
-    color: #CCCCCC;
     padding: 8px 15px;
     border-radius: 50px;
     border: 2px solid #CCCCCC;

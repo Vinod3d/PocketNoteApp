@@ -1,8 +1,12 @@
-import { useState } from "react";
+/* eslint-disable react/prop-types */
+import { useRef, useState } from "react";
 import "./modal.css";
 
-const Modal = ({setOpenModal}) => {
-  const [formData, setFormData] = useState({ grpName: " ", color: " " });
+const Modal = ({setOpenModal, setGroupData}) => {
+  const modalRef = useRef(null);
+  const [formData, setFormData] = useState({ groupName: "", color: "" });
+  const [active, setActive] = useState("");
+  const [error, setError] = useState({});
   const color = [
     "#B38BFA",
     "#FF79F2",
@@ -11,50 +15,89 @@ const Modal = ({setOpenModal}) => {
     "#0047FF",
     "#6691FF",
   ];
+  const validate = () => {
+    const newErrors = {};
+    if (!formData.groupName) {
+      newErrors.groupName = "Group Name is required";
+    }
+    if (!formData.color) {
+      newErrors.color = "Please select a color";
+    }
+    return newErrors;
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    setError(error.groupName = {})
   };
 
   const handleModalClose = (e)=>{
-    if(e.target.className == "modalOverlay"){
+    if (modalRef.current && !modalRef.current.contains(e.target)) {
+        setOpenModal(false);
+    }
+  }
+
+  const handleColorChange = (color) => {
+    setFormData({ ...formData, color });
+    setActive(color)
+    setError(error.color = {});
+  };
+
+  const handleSubmit = (e)=>{
+    e.preventDefault();
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setError(validationErrors);
+      return;
+    }
+
+    if(!error.groupName || !error.color){
+        setGroupData(formData);
+        setError({});
         setOpenModal(false)
     }
   }
+
+  console.log(error)
+
   return (
     <>
       <div 
       className="modalOverlay"
       onClick={handleModalClose}
       >
-        <div className="modalContainer"> 
+        <form className="modalContainer" ref={modalRef} onSubmit={handleSubmit}> 
           <h2 className="modalHeading">Create New Group</h2>
-          <div className="formGroup">
-            <label className="modalGrp">Group Name</label>
-            <input
-                type="text"
-                className="modalText"
-                name="grpName"
-                placeholder="Enter your group name"
-                onChange={handleChange}
-            />
-          </div>
-          <div className="formGroup">
-            <label className="modalColor">Choose Colour</label>
-            {color.map((color, index) => (
-                <button
-                className="colorButton"
-                name="color"
-                key={index}
-                style={{
-                    background: color,
-                }}
-                ></button>
-            ))}
-          </div>
-          <button className="createGroup">Create</button>
-        </div>
+            <div className="formGroup">
+                <label className="modalGrp">Group Name</label>
+                <input
+                    type="text"
+                    className="modalText"
+                    name="groupName"
+                    placeholder="Enter your group name"
+                    onChange={handleChange}
+                />
+            </div>
+            {error.groupName && <p style={{color : 'red'}} className="error">{error.groupName}</p>}
+            <div className="formGroup">
+                <label className="modalColor">Choose Colour</label>
+                {color.map((color, index) => (
+                    <button
+                    className="colorButton"
+                    name="color"
+                    key={index}
+                    style={{
+                        background: color,
+                        border: `${active == color ? "2px solid black" : "none"}`
+                    }}
+                    onClick={() => handleColorChange(color)}
+                    ></button>
+                ))}
+            </div>
+            {error.color && <p style={{color : 'red'}} className="error">{error.color}</p>}
+            <button className="createGroup">Create</button>
+        </form>
       </div>
     </>
   );

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import './sidebar.css'
 import { FaPlus } from "react-icons/fa6";
 
