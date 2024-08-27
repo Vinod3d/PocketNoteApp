@@ -1,16 +1,22 @@
 import { useState } from 'react'
 import Sidebar from './components/sidebar/Sidebar'
 import MainContent from './components/mainContent/MainContent'
+import Modal from './components/modal/Modal'
 
 function App() {
+  const [openModal, setOpenModal] = useState(false);
 
 
   return (
     <>
       <div className="homepage">
-        <Sidebar/>
+        <Sidebar setOpenModal={setOpenModal}/>
         <MainContent/>
-        {/* <Modal/> */}
+        {openModal && 
+        <Modal
+          setOpenModal={setOpenModal}
+        />}
+        
 
       </div>
     </>
