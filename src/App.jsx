@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import Sidebar from './components/sidebar/Sidebar'
 import MainContent from './components/mainContent/MainContent'
 import Modal from './components/modal/Modal'
+import Notes from './components/mainContent/Notes';
 
 function App() {
   const [openModal, setOpenModal] = useState(false);
@@ -31,7 +32,8 @@ function App() {
           groups={groups}
         
         />
-        <MainContent/>
+        {/* <MainContent/> */}
+        <Notes/>
         {openModal && 
         <Modal
           setOpenModal={setOpenModal}
