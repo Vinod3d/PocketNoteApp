@@ -36,7 +36,7 @@
 }
 
 .modalText{
-    font-size: clamp(10px, 5vw, 18px);
+    font-size: clamp(10px, 4vw, 18px);
     font-weight: 400;
     padding: 8px 15px;
     border-radius: 50px;
@@ -60,4 +60,23 @@
     background-color: #001F8B;
     color: #fff;
     margin-left: 73%;
+}
+
+@media screen and (max-width: 490px){
+    .modalContainer label{
+        font-size: clamp(14px, 4.2vw, 22px);
+        font-weight: 500;
+        padding-right: 15px;
+    }
+    .modalText{
+        font-size: clamp(10px, 3vw, 18px);
+        font-weight: 400;
+        padding: 8px 15px;
+        border-radius: 50px;
+        border: 2px solid #CCCCCC;
+    }
+
+    .createGroup{
+        margin-left: 66%;
+    }
 }

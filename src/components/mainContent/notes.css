@@ -1,7 +1,7 @@
 .container {
   position: relative;
   background-color: #d8e3f3;
-  width: 75%;
+  width: calc(100% - 350px);
   height: 100vh;
   overflow: hidden;
   
@@ -16,10 +16,10 @@
 }
 
 .notes {
-  margin-top: 30px;
-  padding: 0 40px;
+  margin-top: 20px;
+  padding: 0 50px;
   overflow-y: auto;
-  height: calc(100% - 60px - 250px);
+  height: calc(100% - 60px - 220px);
 }
 
 .note {
@@ -31,7 +31,7 @@
   font-size: 17px;
   margin-bottom: 20px;
   padding-bottom: 40px;
-  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.2) ;
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2) ;
 }
 
 .note p{
@@ -87,3 +87,10 @@
   border: none;
 }
 
+@media screen and (max-width: 890px){
+  .notes{
+    padding: 0 10px;
+    overflow-y: auto;
+    height: calc(100% - 60px - 180px);
+  }
+}
