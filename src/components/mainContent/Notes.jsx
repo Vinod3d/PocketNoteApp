@@ -1,11 +1,14 @@
 import "./notes.css";
+import { IoMdSend } from "react-icons/io";
 
 const Notes = () => {
   return (
     <div className="container">
       <header className="header">
-        <span className="initials">MN</span>
-        <h1 className="title">My Notes</h1>
+        <span className="groupIcon">
+          <div className="Icon">MN</div>
+        </span>
+        <h1 className="groupName">My Notes</h1>
       </header>
 
       <div className="notes">
@@ -32,15 +35,14 @@ const Notes = () => {
           </p>
           <span className="date">9 Mar 2023 ● 10:10 AM</span>
         </div>
-
       </div>
 
       <div className="textarea-container">
         <textarea
           className="textarea"
-          rows="3"
-          placeholder="Here’s the sample text for sample work"
+          placeholder="Enter your text here...."
         ></textarea>
+        <IoMdSend className="send-icon" />
       </div>
     </div>
   );
