@@ -8,6 +8,10 @@ function App() {
   const [openModal, setOpenModal] = useState(false);
   const [groupData, setGroupData] = useState({});
   const [groups, setGroups] = useState([]);
+  const [selectedGroup, setSelectedGroup] = useState(null);
+  const [notes, setNotes] = useState({});
+
+  console.log(notes)
   
   useEffect(() => {
     if (groupData.groupName && groupData.color) {
@@ -30,10 +34,19 @@ function App() {
         <Sidebar 
           setOpenModal={setOpenModal}
           groups={groups}
+          selectedGroup={selectedGroup}
+          setSelectedGroup={setSelectedGroup}
         
         />
-        {/* <MainContent/> */}
-        <Notes/>
+        {selectedGroup ? 
+        <Notes
+          selectedGroup={selectedGroup}
+          notes={notes}
+          setNotes={setNotes}
+        /> :
+        <MainContent/>
+      }
+        
         {openModal && 
         <Modal
           setOpenModal={setOpenModal}

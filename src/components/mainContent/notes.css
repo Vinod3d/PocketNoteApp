@@ -77,7 +77,6 @@
   right: 30px; /* Adjust according to padding */
   bottom: 30px; /* Align with the bottom of the textarea */
   font-size: clamp(20px, 4vw, 30px); /* Adjust size based on viewport */
-  color: #001f8b; /* Match background color */
-  cursor: pointer;
+  border: none;
 }
 

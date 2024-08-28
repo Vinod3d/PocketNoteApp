@@ -1,24 +1,27 @@
 /* eslint-disable react/prop-types */
+import WordIcon from '../WordIcon';
 import './sidebar.css'
 import { FaPlus } from "react-icons/fa6";
 
-const Sidebar = ({ setOpenModal, groups}) => {
+const Sidebar = ({ setOpenModal, groups, selectedGroup, setSelectedGroup}) => {
 
   return (
     <div className='sidebarContainer'>
         <h1 className="title">Pocket Notes</h1>
         <div className="groupList">
             {groups.map((group, index) => {
-                const words = group.groupName.split(" ");
-                let initials = words[0].slice(0, 1);
-                if(words.length > 1){
-                    initials += words[1].slice(0, 1);
-                }
                return (
-                    <div className="groupItem" key={index}>
+                    <div 
+                        className="groupItem" 
+                        key={index}
+                        style={{
+                            backgroundColor: selectedGroup === group ? '#DCDCDC' : '#fff',
+                        }}
+                        onClick={() => setSelectedGroup(group)}
+                    >
                         <span className='groupIcon' style={{backgroundColor: group.color}}>
                             <span className="Icon">
-                                {initials}
+                                <WordIcon groupName={group.groupName}/>
                             </span>
                         </span>
                         <h2 className='groupName'>{group.groupName}</h2>
