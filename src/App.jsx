@@ -9,23 +9,34 @@ function App() {
   const [groupData, setGroupData] = useState({});
   const [groups, setGroups] = useState([]);
   const [selectedGroup, setSelectedGroup] = useState(null);
-  const [notes, setNotes] = useState({});
+  const [notes, setNotes] = useState(null);
 
-  console.log(notes)
   
   useEffect(() => {
     if (groupData.groupName && groupData.color) {
       const prevData = JSON.parse(localStorage.getItem('group')) || [];
       const updatedData = [...prevData, groupData];
       localStorage.setItem('group', JSON.stringify(updatedData));
-    }
-
-    let storedGroups = localStorage.getItem('group');
-    if (storedGroups) {
-      let groups =  JSON.parse(storedGroups);
-      setGroups(groups);
+      setGroups(updatedData);
     }
   }, [groupData]);
+  
+  useEffect(() => {
+    const storedGroups = localStorage.getItem('group');
+    if (storedGroups) {
+      setGroups(JSON.parse(storedGroups));
+    }
+  }, []);
+  
+  useEffect(() => {
+    const grpName = selectedGroup?.groupName;
+    if (grpName && notes !== null) {
+      const prevData = JSON.parse(localStorage.getItem(grpName)) || [];
+      const updatedData = [...prevData, notes];
+      localStorage.setItem(grpName, JSON.stringify(updatedData));
+    }
+  }, [notes, selectedGroup]);
+  
 
 
   return (

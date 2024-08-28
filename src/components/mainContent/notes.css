@@ -1,8 +1,10 @@
 .container {
   position: relative;
   background-color: #d8e3f3;
-  max-width: 75%;
-  margin: 0 auto;
+  width: 75%;
+  height: 100vh;
+  overflow: hidden;
+  
 }
 
 .header {
@@ -16,6 +18,8 @@
 .notes {
   margin-top: 30px;
   padding: 0 40px;
+  overflow-y: auto;
+  height: calc(100% - 60px - 250px);
 }
 
 .note {
@@ -41,6 +45,9 @@
   font-weight: bold;
   font-size: 16px;
   color: #353535;
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
 .textarea-container {
@@ -74,9 +81,9 @@
 
 .send-icon {
   position: absolute;
-  right: 30px; /* Adjust according to padding */
-  bottom: 30px; /* Align with the bottom of the textarea */
-  font-size: clamp(20px, 4vw, 30px); /* Adjust size based on viewport */
+  right: 30px;
+  bottom: 30px;
+  font-size: clamp(20px, 4vw, 30px);
   border: none;
 }
 

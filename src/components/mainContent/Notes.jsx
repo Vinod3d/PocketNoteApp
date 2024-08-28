@@ -1,14 +1,17 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import WordIcon from "../WordIcon";
 import "./notes.css";
 import { IoMdSend } from "react-icons/io";
+import formatDate from "../formatDate";
+import { GoDotFill } from "react-icons/go";
 
-const Notes = ({selectedGroup, setNotes}) => {
+const Notes = ({ selectedGroup }) => {
   const [input, setInput] = useState({
     text: "",
     timestamp: "",
   });
+  const [storedNotes, setStoredNotes] = useState([]);
 
   const handleInputChange = (event) => {
     const currentTime = new Date().toLocaleString();
@@ -18,46 +21,61 @@ const Notes = ({selectedGroup, setNotes}) => {
     });
   };
 
-  const handleSubmitNotes = ()=>{
-    setNotes(input)
-    setInput({text:"", timestamp:""})
-  }
+  const handleSubmitNotes = () => {
+    if (!selectedGroup || !selectedGroup.groupName) return;
+    const grpName = selectedGroup.groupName;
+    const existingNotes = JSON.parse(localStorage.getItem(grpName)) || [];
+    const updatedNotes = [...existingNotes, input];
+    localStorage.setItem(grpName, JSON.stringify(updatedNotes));
+    setStoredNotes(updatedNotes);
+    setInput({ text: "", timestamp: "" });
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault(); 
+      handleSubmitNotes();
+    }
+  };
+
+  useEffect(() => {
+    if (selectedGroup && selectedGroup.groupName) {
+      const grpName = selectedGroup.groupName;
+      const notes = localStorage.getItem(grpName);
+      if (notes) {
+        setStoredNotes(JSON.parse(notes));
+      } else {
+        setStoredNotes([]);
+      }
+    }
+  }, [selectedGroup]);
 
   return (
     <div className="container">
       <header className="header">
-        <span className="groupIcon" style={{backgroundColor: selectedGroup.color}}>
+        <span
+          className="groupIcon"
+          style={{ backgroundColor: selectedGroup.color }}
+        >
           <div className="Icon">
-            <WordIcon groupName={selectedGroup.groupName}/>
+            <WordIcon groupName={selectedGroup.groupName} />
           </div>
         </span>
         <h1 className="groupName">{selectedGroup.groupName}</h1>
       </header>
 
       <div className="notes">
-        <div className="note">
-          <p>
-            Another productive way to use this tool to begin a daily writing
-            routine. One way is to generate a random paragraph with the
-            intention to try to rewrite it while still keeping the original
-            meaning. The purpose here is to just get the writing started so that
-            when the writer goes onto their days writing projects, words are
-            already flowing from their fingers.
-          </p>
-          <span className="date">9 Mar 2023 ● 10:10 AM</span>
-        </div>
-
-        <div className="note">
-          <p>
-            Another productive way to use this tool to begin a daily writing
-            routine. One way is to generate a random paragraph with the
-            intention to try to rewrite it while still keeping the original
-            meaning. The purpose here is to just get the writing started so that
-            when the writer goes onto their days writing projects, words are
-            already flowing from their fingers.
-          </p>
-          <span className="date">9 Mar 2023 ● 10:10 AM</span>
-        </div>
+        {storedNotes.map((notes, index) => {
+          const { date, time } = formatDate(notes.timestamp);
+          return (
+            <div className="note" key={index}>
+              <p>{notes.text}</p>
+              <span className="date">
+                {date} <GoDotFill /> {time}
+              </span>
+            </div>
+          );
+        })}
       </div>
 
       <div className="textarea-container">
@@ -66,17 +84,18 @@ const Notes = ({selectedGroup, setNotes}) => {
           value={input.text}
           placeholder="Enter your text here...."
           onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
         ></textarea>
-        <button 
-          type="button" 
+        <button
+          type="button"
           className="send-icon"
           style={{
-            cursor : `${input.text === "" ? 'not-allowed' : 'pointer'}`,
-            color : `${input.text === "" ? '#b9bbc0' : '#001f8b'}`
+            cursor: `${input.text === "" ? "not-allowed" : "pointer"}`,
+            color: `${input.text === "" ? "#b9bbc0" : "#001f8b"}`,
           }}
-          onClick={()=>handleSubmitNotes()}
+          onClick={() => handleSubmitNotes()}
         >
-          <IoMdSend  disable/>
+          <IoMdSend />
         </button>
       </div>
     </div>
