@@ -1,6 +1,6 @@
 .bannerSection{
     background-color: #DAE5F5;
-    width: calc(100% - 350px);
+    width: 80vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -11,6 +11,9 @@
 .hero{
     margin: 0 auto;
     text-align: center;
+}
+.hero img{
+    width: 40vw;
 }
 
 .bannerHeading{
@@ -29,4 +32,15 @@
     margin-top: 50px;
     position: absolute;
     bottom: 50px;
+}
+
+@media screen and (max-width: 900px) {
+    .bannerHeading{
+        font-size: clamp(30px , 2vw, 40px);
+    }
+    
+    .bannerDescription{
+        font-size: 15px;
+    }
+    
 }

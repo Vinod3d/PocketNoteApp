@@ -9,10 +9,21 @@
 
 .header {
   display: flex;
+  gap: 10px;
   align-items: center;
   background-color: #001f8b;
   color: #ffffff;
   padding: 16px;
+}
+
+.backBtn{
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: #fff;
+  font-size: 24px;
+  display: none;
+  cursor: pointer;
 }
 
 .notes {
@@ -92,5 +103,11 @@
     padding: 0 10px;
     overflow-y: auto;
     height: calc(100% - 60px - 180px);
+  }
+}
+
+@media screen and (max-width: 767px){
+  .backBtn{
+    display: block;
   }
 }

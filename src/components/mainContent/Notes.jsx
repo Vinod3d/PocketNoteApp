@@ -5,8 +5,9 @@ import "./notes.css";
 import { IoMdSend } from "react-icons/io";
 import formatDate from "../formatDate";
 import { GoDotFill } from "react-icons/go";
+import { FaArrowLeftLong } from "react-icons/fa6";
 
-const Notes = ({ selectedGroup }) => {
+const Notes = ({ selectedGroup, setSelectedGroup }) => {
   const [input, setInput] = useState({
     text: "",
     timestamp: "",
@@ -53,6 +54,9 @@ const Notes = ({ selectedGroup }) => {
   return (
     <div className="container">
       <header className="header">
+        <button className="backBtn" onClick={() => setSelectedGroup(null)}>
+          <FaArrowLeftLong />
+        </button>
         <span
           className="groupIcon"
           style={{ backgroundColor: selectedGroup.color }}

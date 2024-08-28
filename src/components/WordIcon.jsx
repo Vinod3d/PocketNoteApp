@@ -1,6 +1,5 @@
 
 const WordIcon = ({groupName}) => {
-    console.log(groupName)
     const words = groupName.split(" ");
     let initials = words[0].slice(0, 1);
     if(words.length > 1){
