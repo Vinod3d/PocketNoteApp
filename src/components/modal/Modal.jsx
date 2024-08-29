@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
-import {useRef, useState } from "react";
+import {useEffect, useRef, useState } from "react";
 import "./modal.css";
 
 const Modal = ({setOpenModal, setGroupData}) => {
   const modalRef = useRef(null);
+  const inputRef = useRef(null);
   const [formData, setFormData] = useState({ groupName: "", color: "" });
   const [active, setActive] = useState("");
   const [error, setError] = useState({});
@@ -59,6 +60,11 @@ const Modal = ({setOpenModal, setGroupData}) => {
     }
   }
 
+  useEffect(()=>{
+    if(inputRef.current){
+      inputRef.current.focus();
+    }
+  },[])
   return (
     <>
       <div 
@@ -70,11 +76,13 @@ const Modal = ({setOpenModal, setGroupData}) => {
             <div className="formGroup">
                 <label className="modalGrp">Group Name</label>
                 <input
+                    ref={inputRef}
                     type="text"
                     className="modalText"
                     name="groupName"
                     placeholder="Enter your group name"
                     onChange={handleChange}
+                    
                 />
             </div>
             {error.groupName && <p style={{color : 'red'}} className="error">{error.groupName}</p>}

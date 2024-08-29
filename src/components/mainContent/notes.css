@@ -88,6 +88,7 @@
   font-size: clamp(17px, 4vw, 22px);
   line-height: 25px;
   letter-spacing: 0.7px;
+  outline: none;
 }
 
 .send-icon {
