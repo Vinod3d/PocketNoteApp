@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Sidebar from './components/sidebar/Sidebar';
 import Notes from './components/mainContent/Notes';
 import MainContent from './components/mainContent/MainContent';
 import Modal from './components/modal/Modal';
-// import './App.css';  // Ensure to include this for necessary CSS adjustments
 
 const App = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -27,11 +26,18 @@ const App = () => {
   useEffect(() => {
     if (groupData.groupName && groupData.color) {
       const prevData = JSON.parse(localStorage.getItem('group')) || [];
-      const updatedData = [...prevData, groupData];
-      localStorage.setItem('group', JSON.stringify(updatedData));
-      setGroups(updatedData);
+      const groupExists = prevData.some(group => group.groupName === groupData.groupName);
+  
+      if (!groupExists) {
+        const updatedData = [...prevData, groupData];
+        localStorage.setItem('group', JSON.stringify(updatedData));
+        setGroups(updatedData);
+      } else {
+        alert("A group with this name already exists. Please choose a different name.");
+      }
     }
   }, [groupData]);
+  
 
   useEffect(() => {
     const storedGroups = localStorage.getItem('group');
@@ -40,37 +46,24 @@ const App = () => {
     }
   }, []);
 
-  useEffect(() => {
-    const grpName = selectedGroup?.groupName;
-    if (grpName && notes !== null) {
-      const prevData = JSON.parse(localStorage.getItem(grpName)) || [];
-      const updatedData = [...prevData, notes];
-      localStorage.setItem(grpName, JSON.stringify(updatedData));
-    }
-  }, [notes, selectedGroup]);
-
   const handleGroupSelect = (group) => {
     setSelectedGroup(group);
-    if (isMobileView) {
-      // setIsMobileView(false);
-    }
   };
 
   return (
     <div className={`homepage ${isMobileView ? 'mobile' : 'desktop'}`}>
       {isMobileView ? (
         selectedGroup ? (
-          <>
             <Notes selectedGroup={selectedGroup} notes={notes} setNotes={setNotes} setSelectedGroup={setSelectedGroup}/>
-          </>
         ) : (
-          <Sidebar
-            setOpenModal={setOpenModal}
-            groups={groups}
-            selectedGroup={selectedGroup}
-            setSelectedGroup={handleGroupSelect}
-          />
+            <Sidebar
+              setOpenModal={setOpenModal}
+              groups={groups}
+              selectedGroup={selectedGroup}
+              setSelectedGroup={handleGroupSelect}
+            />
         )
+        
       ) : (
         <>
           <Sidebar

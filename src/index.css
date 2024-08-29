@@ -23,11 +23,6 @@ html, body {
   border-radius: 7px;
 }
 
-.homepage{
-  display: flex;
-  width: 100vw;
-}
-
 
 
 .homepage {
@@ -41,7 +36,7 @@ html, body {
 }
 
 .homepage.desktop .container {
-  width: 75%;
+  width: calc(100% - 350px);
 }
 
 .homepage.mobile {
@@ -56,20 +51,4 @@ html, body {
 .homepage.mobile .container {
   width: 100vw;
   height: 100vh;
-}
-
-.back-button {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background-color: #001f8b;
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.back-button:hover {
-  background-color: #0041c4;
 }
